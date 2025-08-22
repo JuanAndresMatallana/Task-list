@@ -53,12 +53,25 @@ def main():
             if not tareas:
                 print("No hay tareas registradas")
             else:
-                for t in tareas:
-                    estado = "✅" if t["completada"] else "❌"
-                    print(f"{t["id"]}. {t["descripcion"]} [{estado}]")
+                print("\n Tareas pendientes")
+                pendientes = [t for t in tareas if not t["completada"]]
 
+                if pendientes:
+                    for t in pendientes:
+                        print(f"{t["id"]}. {t["descripcion"]} [❌]")
+                else:
+                    print("No hay tareas pendientes")
 
+                print("\n Tareas completadas")
 
+                completadas = [t for t in tareas if t["completada"]]
+
+                if completadas:
+                    for  t in completadas:
+                        print(f"{t["id"]}. {t["descripcion"]} [✅]")
+
+                else:
+                    print("No hay tareas completadas")
 
         if opcion == "3":
             id_tarea = input("Por favor ingrese el ID de la tarjeta a completar")
