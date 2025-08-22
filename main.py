@@ -50,7 +50,16 @@ def main():
 
             
         if opcion == "2":
-            print("Listar las tareas")
+            if not tareas:
+                print("No hay tareas registradas")
+            else:
+                for t in tareas:
+                    estado = "✅" if t["completada"] else "❌"
+                    print(f"{t["id"]}. {t["descripcion"]} [{estado}]")
+
+
+
+
         if opcion == "3":
             print("Completar las tareas")
         if opcion == "4":
