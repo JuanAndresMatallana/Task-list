@@ -61,7 +61,15 @@ def main():
 
 
         if opcion == "3":
-            print("Completar las tareas")
+            id_tarea = input("Por favor ingrese el ID de la tarjeta a completar")
+            for t in tareas:
+                if t["id"] == id_tarea:
+                    t["completada"] = True
+                    guardar_tareas(tareas)
+                    print("La tarea ha sido completada")
+                    break
+                else:
+                    print("Tarea no encontrada")
         if opcion == "4":
             print("Saliendo del programa")
             break
