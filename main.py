@@ -30,9 +30,43 @@ def mostrar_menu():
 
 
 
+
+def listar_tareas(tareas):
+    if not tareas:
+        print("No hay tareas registradas")
+    else:
+        
+        pendientes = [t for t in tareas if not t["completada"]]
+        completadas = [t for t in tareas if t["completada"]]
+
+        print("\n Tareas pendientes:")
+
+        if pendientes:
+            for t in pendientes:
+                print(f'{t["id"]}. {t["descripcion"]} [❌]')
+        else:
+            print("No hay tareas pendientes")
+
+        print("\n Tareas completadas")
+
+        completadas = [t for t in tareas if t["completada"]]
+
+        if completadas:
+            for  t in completadas:
+                print(f'{t["id"]}. {t["descripcion"]} [✅]')
+
+        else:
+            print("No hay tareas completadas")
+
+        print("\n---Resumen---")
+        print(f"Pendientes: {len(pendientes)} | Completadas: {len(completadas)} | Total: {len(tareas)}")
+
+
+
+
 def main():
     tareas = cargar_tareas()
-
+    listar_tareas(tareas)
     while True:
         mostrar_menu()
         opcion = input("Elige una opcion: ")
@@ -52,36 +86,7 @@ def main():
 
             
         elif opcion == "2":
-            if not tareas:
-                print("No hay tareas registradas")
-            else:
-                
-                pendientes = [t for t in tareas if not t["completada"]]
-                completadas = [t for t in tareas if t["completada"]]
-
-                print("\n Tareas pendientes:")
-
-                if pendientes:
-                    for t in pendientes:
-                        print(f'{t["id"]}. {t["descripcion"]} [❌]')
-                else:
-                    print("No hay tareas pendientes")
-
-                print("\n Tareas completadas")
-
-                completadas = [t for t in tareas if t["completada"]]
-
-                if completadas:
-                    for  t in completadas:
-                        print(f'{t["id"]}. {t["descripcion"]} [✅]')
-
-                else:
-                    print("No hay tareas completadas")
-
-                print("\n---Resumen---")
-                print(f"Pendientes: {len(pendientes)} | Completadas: {len(completadas)} | Total: {len(tareas)}")
-
-
+            listar_tareas(tareas)
 
         elif opcion == "3":
             id_tarea = int(input("Por favor ingrese el ID de la tarjeta a completar: "))
