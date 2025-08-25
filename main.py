@@ -18,7 +18,6 @@ def guardar_tareas(tareas):
 
 
 
-
 def mostrar_menu():
     print("\n--- Gestor de Tareas ---")
     print("1. Agregar tarea")
@@ -28,6 +27,14 @@ def mostrar_menu():
     print("5. Eliminar tarea")
     print("6. Editar tarea")
 
+
+def pedir_id(mensaje):
+    while True:
+        entrada = input(mensaje)
+        if entrada.isdigit():
+            return int(entrada)
+        else:
+            print("Por favor ingresa un numero valido")
 
 
 
@@ -69,7 +76,7 @@ def main():
     listar_tareas(tareas)
     while True:
         mostrar_menu()
-        opcion = input("Elige una opcion: ")
+        opcion = pedir_id("Elige una opcion: ")
         if opcion == "1":
             descripcion = input("Descripcion de la tarea: ")
             categoria = input("Categoria(Estudio/Trabajo/Personal)[Enter = General]: ").strip() or "General"
@@ -91,7 +98,7 @@ def main():
             listar_tareas(tareas)
 
         elif opcion == "3":
-            id_tarea = int(input("Por favor ingrese el ID de la tarjeta a completar: "))
+            id_tarea = pedir_id("Por favor ingrese el ID de la tarjeta a completar: ")
             for t in tareas:
                 if t["id"] == id_tarea:
                     t["completada"] = True
@@ -105,7 +112,7 @@ def main():
             break
 
         elif opcion == "5":
-            id_tarea = int(input("ID de la tarea a eliminar: "))
+            id_tarea = pedir_id("ID de la tarea a eliminar: ")
             #se crea una nueva lista sin el elemento que el usuario desea eliminar
             nueva_lista = [t for t in tareas if t["id"] != id_tarea]
 
@@ -120,7 +127,7 @@ def main():
 
 
         elif opcion == "6":
-            id_tarea = int(input("ID de la tarea a editar: "))
+            id_tarea = pedir_id("ID de la tarea a editar: ")
             for t in tareas:
                 if t["id"] == id_tarea:
                     print(f"Descripcion actual: {t['descripcion']}")
