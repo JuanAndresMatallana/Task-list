@@ -26,6 +26,7 @@ def mostrar_menu():
     print("3. Completar tarea")
     print("4. Salir")
     print("5. Eliminar tarea")
+    print("6. Editar tarea")
 
 
 
@@ -101,6 +102,23 @@ def main():
                 tareas = nueva_lista
                 guardar_tareas(tareas)
                 print("Tarea eliminada y ID ordenados")
+
+
+        elif opcion == "6":
+            id_tarea = int(input("ID de la tarea a editar: "))
+            for t in tareas:
+                if t["id"] == id_tarea:
+                    print(f"Descripcion actual: {t['descripcion']}")
+                    nueva_desc = input("Nueva descripcion: ").strip()
+                    if nueva_desc:
+                        t["descripcion"] = nueva_desc
+                        guardar_tareas(tareas)
+                        print("Tarea actualizada con exito")
+                    else:
+                        print("No se realizo ningun cambio")
+                        break
+            else:
+                print("No se encontro ninguna tarea con ese ID")
         else:
             print("Opcion invalida intenta de nuevo")
 
