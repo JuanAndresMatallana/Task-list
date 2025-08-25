@@ -6,7 +6,7 @@ import os
 ARCHIVO_TAREAS = "tareas.json"
 
 def cargar_tareas():
-    if os.path.exits(ARCHIVO_TAREAS):
+    if not os.path.exists(ARCHIVO_TAREAS):
         return []
     with open(ARCHIVO_TAREAS, "r") as f:
         return json.load(f)
@@ -50,7 +50,7 @@ def main():
             print("Tarea agregada")
 
             
-        if opcion == "2":
+        elif opcion == "2":
             if not tareas:
                 print("No hay tareas registradas")
             else:
@@ -59,7 +59,7 @@ def main():
 
                 if pendientes:
                     for t in pendientes:
-                        print(f"{t["id"]}. {t["descripcion"]} [❌]")
+                        print(f'{t["id"]}. {t["descripcion"]} [❌]')
                 else:
                     print("No hay tareas pendientes")
 
@@ -69,22 +69,22 @@ def main():
 
                 if completadas:
                     for  t in completadas:
-                        print(f"{t["id"]}. {t["descripcion"]} [✅]")
+                        print(f'{t["id"]}. {t["descripcion"]} [✅]')
 
                 else:
                     print("No hay tareas completadas")
 
-        if opcion == "3":
-            id_tarea = input("Por favor ingrese el ID de la tarjeta a completar")
+        elif opcion == "3":
+            id_tarea = int(input("Por favor ingrese el ID de la tarjeta a completar: "))
             for t in tareas:
                 if t["id"] == id_tarea:
                     t["completada"] = True
                     guardar_tareas(tareas)
                     print("La tarea ha sido completada")
                     break
-                else:
-                    print("Tarea no encontrada")
-        if opcion == "4":
+            else:
+                print("Tarea no encontrada")
+        elif opcion == "4":
             print("Saliendo del programa")
             break
 
@@ -93,7 +93,7 @@ def main():
             #se crea una nueva lista sin el elemento que el usuario desea eliminar
             nueva_lista = [t for t in tareas if t["id"] != id_tarea]
 
-            if len(nueva_lista) == len(tareas):
+            if len(nueva_lista) < len(tareas):
                 tareas = nueva_lista
                 guardar_tareas(tareas)
                 print("Tarea eliminada con exito")
