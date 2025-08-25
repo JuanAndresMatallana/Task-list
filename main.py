@@ -55,8 +55,11 @@ def main():
             if not tareas:
                 print("No hay tareas registradas")
             else:
-                print("\n Tareas pendientes")
+                
                 pendientes = [t for t in tareas if not t["completada"]]
+                completadas = [t for t in tareas if t["completada"]]
+
+                print("\n Tareas pendientes:")
 
                 if pendientes:
                     for t in pendientes:
@@ -74,6 +77,11 @@ def main():
 
                 else:
                     print("No hay tareas completadas")
+
+                print("\n---Resumen---")
+                print(f"Pendientes: {len(pendientes)} | Completadas: {len(completadas)} | Total: {len(tareas)}")
+
+
 
         elif opcion == "3":
             id_tarea = int(input("Por favor ingrese el ID de la tarjeta a completar: "))
