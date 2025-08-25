@@ -37,6 +37,15 @@ def pedir_id(mensaje):
             print("Por favor ingresa un numero valido")
 
 
+def pedir_descripcion():
+    while True:
+        desc = input("Descripcion de la tarea: ").strip()
+        if desc:
+            return desc
+        else:
+            print("La descripcion no puede estar vacia")
+
+
 
 def listar_tareas(tareas):
     if not tareas:
@@ -77,8 +86,8 @@ def main():
     while True:
         mostrar_menu()
         opcion = pedir_id("Elige una opcion: ")
-        if opcion == "1":
-            descripcion = input("Descripcion de la tarea: ")
+        if opcion == 1:
+            descripcion = pedir_descripcion()
             categoria = input("Categoria(Estudio/Trabajo/Personal)[Enter = General]: ").strip() or "General"
             #Se crea un diccionario para almacenar la tarea
             nueva_tarea = {
@@ -94,10 +103,10 @@ def main():
             print("Tarea agregada")
 
             
-        elif opcion == "2":
+        elif opcion == 2:
             listar_tareas(tareas)
 
-        elif opcion == "3":
+        elif opcion == 3:
             id_tarea = pedir_id("Por favor ingrese el ID de la tarjeta a completar: ")
             for t in tareas:
                 if t["id"] == id_tarea:
@@ -107,11 +116,11 @@ def main():
                     break
             else:
                 print("Tarea no encontrada")
-        elif opcion == "4":
+        elif opcion == 4:
             print("Saliendo del programa")
             break
 
-        elif opcion == "5":
+        elif opcion == 5:
             id_tarea = pedir_id("ID de la tarea a eliminar: ")
             #se crea una nueva lista sin el elemento que el usuario desea eliminar
             nueva_lista = [t for t in tareas if t["id"] != id_tarea]
@@ -126,12 +135,12 @@ def main():
                 print("Tarea eliminada y ID ordenados")
 
 
-        elif opcion == "6":
+        elif opcion == 6:
             id_tarea = pedir_id("ID de la tarea a editar: ")
             for t in tareas:
                 if t["id"] == id_tarea:
                     print(f"Descripcion actual: {t['descripcion']}")
-                    nueva_desc = input("Nueva descripcion: ").strip()
+                    nueva_desc = pedir_descripcion()
                     if nueva_desc:
                         t["descripcion"] = nueva_desc
                         guardar_tareas(tareas)
