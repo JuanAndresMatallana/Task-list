@@ -53,7 +53,7 @@ def listar_tareas(tareas):
 
         if completadas:
             for  t in completadas:
-                print(f'{t["id"]}. {t["descripcion"]} [✅]')
+                print(f'{t["id"]}. Categoria: {t["categoria"]} {t["descripcion"]} [✅]')
 
         else:
             print("No hay tareas completadas")
@@ -72,10 +72,12 @@ def main():
         opcion = input("Elige una opcion: ")
         if opcion == "1":
             descripcion = input("Descripcion de la tarea: ")
+            categoria = input("Categoria(Estudio/Trabajo/Personal)[Enter = General]: ").strip() or "General"
             #Se crea un diccionario para almacenar la tarea
             nueva_tarea = {
                 "id": len(tareas)+1,
                 "descripcion": descripcion,
+                "categoria":categoria,
                 "completada": False
 
             }
