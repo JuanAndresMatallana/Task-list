@@ -93,11 +93,14 @@ def main():
             #se crea una nueva lista sin el elemento que el usuario desea eliminar
             nueva_lista = [t for t in tareas if t["id"] != id_tarea]
 
-            if len(nueva_lista) < len(tareas):
+            if len(nueva_lista) != len(tareas):
+                
+                for i, tarea in enumerate(nueva_lista, start=1):
+                    tarea["id"] = i
+                
                 tareas = nueva_lista
                 guardar_tareas(tareas)
-                print("Tarea eliminada con exito")
-
+                print("Tarea eliminada y ID ordenados")
         else:
             print("Opcion invalida intenta de nuevo")
 
