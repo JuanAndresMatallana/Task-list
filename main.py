@@ -25,6 +25,7 @@ def mostrar_menu():
     print("2. Listar tareas")
     print("3. Completar tarea")
     print("4. Salir")
+    print("5. Eliminar tarea")
 
 
 
@@ -86,6 +87,20 @@ def main():
         if opcion == "4":
             print("Saliendo del programa")
             break
+
+        elif opcion == "5":
+            id_tarea = int(input("ID de la tarea a eliminar: "))
+            #se crea una nueva lista sin el elemento que el usuario desea eliminar
+            nueva_lista = [t for t in tareas if t["id"] != id_tarea]
+
+            if len(nueva_lista) == len(tareas):
+                tareas = nueva_lista
+                guardar_tareas(tareas)
+                print("Tarea eliminada con exito")
+
         else:
             print("Opcion invalida intenta de nuevo")
 
+
+if __name__ == "__main__":
+    main()
