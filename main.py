@@ -80,6 +80,23 @@ def listar_tareas(tareas):
 
 
 
+CATEGORIAS_VALIDAS = ["Estudio", "Trabajo", "Personal", "General"]
+
+def pedir_categoria():
+    while True:
+        cat = input("Categoria (Estudio/Trabajo/Personal) [Enter = General]: ").strip() or "General"
+        if cat.capitalize() in CATEGORIAS_VALIDAS:
+            return cat.capitalize
+        print("Categoría inválida. Usa: Estudio, Trabajo, Personal o General.")
+
+
+
+
+
+
+
+
+
 def main():
     tareas = cargar_tareas()
     listar_tareas(tareas)
@@ -88,7 +105,7 @@ def main():
         opcion = pedir_id("Elige una opcion: ")
         if opcion == 1:
             descripcion = pedir_descripcion()
-            categoria = input("Categoria(Estudio/Trabajo/Personal)[Enter = General]: ").strip() or "General"
+            categoria = pedir_categoria()
             #Se crea un diccionario para almacenar la tarea
             nueva_tarea = {
                 "id": len(tareas)+1,
