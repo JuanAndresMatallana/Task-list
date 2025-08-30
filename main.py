@@ -2,6 +2,7 @@ import json
 
 import os
 
+from datetime import datetime
 
 ARCHIVO_TAREAS = "tareas.json"
 
@@ -59,7 +60,7 @@ def listar_tareas(tareas):
 
         if pendientes:
             for t in pendientes:
-                print(f'{t["id"]}. {t["descripcion"]} [❌]')
+                print(f'{t["id"]}. Categoria: {t["categoria"]} {t["descripcion"]} [❌]')
         else:
             print("No hay tareas pendientes")
 
@@ -86,12 +87,21 @@ def pedir_categoria():
     while True:
         cat = input("Categoria (Estudio/Trabajo/Personal) [Enter = General]: ").strip() or "General"
         if cat.capitalize() in CATEGORIAS_VALIDAS:
-            return cat.capitalize
+            return cat.capitalize()
         print("Categoría inválida. Usa: Estudio, Trabajo, Personal o General.")
 
 
 
-
+def pedir_fecha():
+    while True:
+        entrada = input("Fecha límite (YYYY-MM-DD) [Enter = sin fecha]: ").strip()
+        if not entrada:
+            return None
+        try:
+            fecha = datetime.strptime(entrada, "%Y-%m-%d").date()
+            return str(fecha)
+        except:
+            print("Formato inválido. Usa YYYY-MM-DD (ejemplo: 2025-08-30).")
 
 
 
@@ -106,11 +116,13 @@ def main():
         if opcion == 1:
             descripcion = pedir_descripcion()
             categoria = pedir_categoria()
+            fecha_limite = pedir_fecha()
             #Se crea un diccionario para almacenar la tarea
             nueva_tarea = {
                 "id": len(tareas)+1,
                 "descripcion": descripcion,
                 "categoria":categoria,
+                "fecha_limite": fecha_limite or "Sin fecha",
                 "completada": False
 
             }
@@ -124,7 +136,7 @@ def main():
             listar_tareas(tareas)
 
         elif opcion == 3:
-            id_tarea = pedir_id("Por favor ingrese el ID de la tarjeta a completar: ")
+            id_tarea = pedir_id("Por favor ingrese el ID de la tarea a completar: ")
             for t in tareas:
                 if t["id"] == id_tarea:
                     t["completada"] = True
