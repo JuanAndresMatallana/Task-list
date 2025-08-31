@@ -48,6 +48,16 @@ def pedir_descripcion():
 
 
 
+def pedir_prioridad():
+    while True:
+        prioridad = input("Prioridad (Alta/Media/) [Enter = Media]: ").strip().capitalize() or "Media"
+        if prioridad in ["Alta", "Media", "Baja"]:
+            return prioridad
+        print("Prioridad inválida. Usa: Alta, Media o Baja.")
+
+
+
+
 def listar_tareas(tareas):
     if not tareas:
         print("No hay tareas registradas")
@@ -60,7 +70,7 @@ def listar_tareas(tareas):
 
         if pendientes:
             for t in pendientes:
-                print(f'{t["id"]}. Categoria: {t["categoria"]} {t["descripcion"]} [❌]')
+                print(f'{t["id"]}. Categoria: {t["categoria"]} Prioridad: {t["prioridad"]} {t["descripcion"]} [❌]')
         else:
             print("No hay tareas pendientes")
 
@@ -70,7 +80,7 @@ def listar_tareas(tareas):
 
         if completadas:
             for  t in completadas:
-                print(f'{t["id"]}. Categoria: {t["categoria"]} {t["descripcion"]} [✅]')
+                print(f'{t["id"]}. Categoria: {t["categoria"]} {t["descripcion"]} Prioridad: {t["prioridad"]} [✅]')
 
         else:
             print("No hay tareas completadas")
@@ -107,6 +117,9 @@ def pedir_fecha():
 
 
 
+
+
+
 def main():
     tareas = cargar_tareas()
     listar_tareas(tareas)
@@ -116,6 +129,7 @@ def main():
         if opcion == 1:
             descripcion = pedir_descripcion()
             categoria = pedir_categoria()
+            prioridad = pedir_prioridad()
             fecha_limite = pedir_fecha()
             #Se crea un diccionario para almacenar la tarea
             nueva_tarea = {
